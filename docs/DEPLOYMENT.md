@@ -13,6 +13,18 @@ Node 20+ (22 tested), PostgreSQL 14+.
 | `AI_PROVIDER`, `AI_API_KEY`, `AI_MODEL`, `AI_BASE_URL` | no | Optional AI |
 
 ## Steps
+### Vercel
+
+1. Create a PostgreSQL database with Neon, Supabase, or Vercel Postgres.
+2. Add `DATABASE_URL` to the Vercel project for both **Production** and **Preview** environments.
+3. Deploy from the `main` branch. Vercel runs `vercel-build`, which synchronizes the Drizzle schema before compiling Next.js.
+4. Open `/api/health`; it should return `{ "ok": true }` before importing data.
+5. Use **Load demo dataset** or import a CSV from `/import`.
+
+The database is intentionally external and persistent. Do not use an in-memory store or a local filesystem for deployed data because Vercel functions are ephemeral.
+
+### Local or manual setup
+
 ```bash
 npm ci
 npx drizzle-kit push          # creates schema from src/db/schema.ts on a clean DB
