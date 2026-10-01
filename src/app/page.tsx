@@ -8,7 +8,12 @@ export const dynamic = "force-dynamic";
 const LOOP = ["Import CSV", "Validate & normalise", "Shipment timelines", "RTO / NDR classification", "Segmentation", "Root-cause candidates", "Anomalies", "Findings", "Simulate intervention", "Report"];
 
 export default async function LandingPage() {
-  const ds = await getActiveDataset();
+  let ds = null;
+  try {
+    ds = await getActiveDataset();
+  } catch {
+    // The landing page remains available while database configuration is being completed.
+  }
   return (
     <div className="min-h-screen bg-canvas">
       <header className="flex items-center justify-between border-b border-line px-6 py-4 md:px-12">
