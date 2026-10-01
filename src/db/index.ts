@@ -6,9 +6,9 @@ const globalForDb = globalThis as typeof globalThis & {
 };
 
 function getPool(): Pool {
-  const databaseUrl = process.env.DATABASE_URL;
+  const databaseUrl = process.env.DATABASE_URL ?? process.env.POSTGRES_URL ?? process.env.POSTGRES_URL_NON_POOLING;
   if (!databaseUrl) {
-    throw new Error("DATABASE_URL is required");
+    throw new Error("DATABASE_URL or POSTGRES_URL is required");
   }
   if (!globalForDb.__arenaNextJsPostgresqlPool) {
     globalForDb.__arenaNextJsPostgresqlPool = new Pool({

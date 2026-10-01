@@ -6,7 +6,7 @@ Node 20+ (22 tested), PostgreSQL 14+.
 ## Environment variables
 | Var | Required | Purpose |
 |---|---|---|
-| `DATABASE_URL` | yes | Postgres connection string |
+| `DATABASE_URL` | yes* | Postgres connection string; Vercel Postgres `POSTGRES_URL` or `POSTGRES_URL_NON_POOLING` is also accepted |
 | `APP_ACCESS_KEY` | no | Enables access-key gate |
 | `MAX_UPLOAD_MB` | no | Upload cap (default 10) |
 | `MAX_IMPORT_ROWS` | no | Row cap (default 500000) |
@@ -22,6 +22,8 @@ Node 20+ (22 tested), PostgreSQL 14+.
 5. Use **Load demo dataset** or import a CSV from `/import`.
 
 The database is intentionally external and persistent. Do not use an in-memory store or a local filesystem for deployed data because Vercel functions are ephemeral.
+
+\* At least one of `DATABASE_URL`, `POSTGRES_URL`, or `POSTGRES_URL_NON_POOLING` must be configured in Vercel. If none is present, `vercel-build` stops intentionally rather than deploying an app that cannot persist data.
 
 ### Local or manual setup
 
